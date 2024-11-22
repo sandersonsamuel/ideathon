@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Checkbox } from "@/components/ui/checkbox"
-import { collection, doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/services/firebase'
 import toast from 'react-hot-toast'
 
@@ -21,7 +21,6 @@ const contractorSchema = z.object({
   careType: z.array(z.string()).refine((value) => value.length > 0, {
     message: "Selecione pelo menos um tipo de cuidado",
   }),
-  schedule: z.string().min(2, 'Horário é obrigatório'),
   location: z.string().min(2, 'Localização é obrigatória'),
   specificSkills: z.string(),
 })
@@ -50,7 +49,6 @@ export default function ContractorForm({ userId, backFn} : Props) {
       email: '',
       phone: '',
       careType: [],
-      schedule: '',
       location: '',
       specificSkills: '',
     },
@@ -175,19 +173,7 @@ export default function ContractorForm({ userId, backFn} : Props) {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="schedule"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Horário</FormLabel>
-              <FormControl>
-                <Input placeholder="Ex: Segunda a Sexta, 8h às 18h" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      
         <FormField
           control={form.control}
           name="location"
@@ -195,7 +181,7 @@ export default function ContractorForm({ userId, backFn} : Props) {
             <FormItem>
               <FormLabel>Endereço</FormLabel>
               <FormControl>
-                <Input placeholder="Cidade, Estado" {...field} />
+                <Input placeholder="Estado, Cidade, Rua, Bairro, Nº" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

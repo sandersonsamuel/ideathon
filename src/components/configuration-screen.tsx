@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import ContractorForm from '@/components/contractor-form'
 import ProviderForm from '@/components/provider-form'
 
-type UserType = 'contractor' | 'provider'
+export type UserType = 'contractor' | 'provider'
 
 export default function ConfigurationScreen({ userId }: { userId: string }) {
 
